@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScrPad</title>
+    <meta
+      name="description"
+      content="Create beautiful images out of your lyrics, quotes etc and share with everyone!"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&family=Merriweather:wght@900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/66c0687ece.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: inherit;
+      }
+
+      html,
+      body {
+        margin: 0;
+        font-family: 'IBM Plex Sans', sans-serif;
+      }
+
+      img {
+        max-width: 100%;
+        width: auto;
+      }
+
+      #pad {
+        max-width: 500px;
+        min-height: 80vh;
+        padding: 1rem;
+        border: 1px solid lightgray;
+        margin: 0.5rem auto;
+        line-height: 1.5;
+        position: relative;
+        outline: none;
+      }
+
+      @media screen and (max-width: 500px) {
+        #pad {
+          margin: 0.5rem;
+        }
+      }
+
+      #attribute {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding: 2px;
+        color: #ccb5b59f;
+        font-size: 0.7em;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      #pad.dark {
+        background-color: #050218;
+        color: #aba3c8;
+        border: 1px solid #050218;
+      }
+
+      #pad.dark h3 {
+        color: #fff;
+      }
+
+      #pad h1,
+      #pad h2,
+      #pad h3,
+      #pad h4,
+      #pad h5,
+      #pad h6 {
+        line-height: 1.2;
+        margin: 0;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        font-family: 'Merriweather', serif;
+      }
+
+      #editor-control,
+      #download {
+        padding: 0.5rem;
+      }
+
+      #editor-control * {
+        font-size: 1em;
+        line-height: 1;
+      }
+
+      #editor-control > div {
+        margin-bottom: 5px;
+      }
+
+      #editor-control a {
+        padding: 0.5rem;
+        position: relative;
+        border: 1px solid lightgray;
+        border-radius: 0.3rem;
+        display: inline-block;
+        text-decoration: none;
+        color: inherit;
+        margin-bottom: 5px;
+      }
+
+      #editor-control a input {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      button,
+      .btn {
+        background-color: #f4f8fa;
+        border: 1px solid #189de0;
+        padding: 0.3rem 0.7rem;
+        color: #189de0;
+        text-transform: uppercase;
+        border-radius: 0.3rem;
+        cursor: pointer;
+        outline: none;
+        text-decoration: none;
+        margin-right: 10px;
+        font-weight: bold;
+      }
+
+      [contenteditable][placeholder]:empty:before {
+        /* https://stackoverflow.com/a/56704079/8657006 */
+        content: attr(placeholder);
+        position: absolute;
+        color: gray;
+        background-color: transparent;
+      }
+
+      .control-divider {
+        width: 20px;
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="editor-control">
+      <div class="alignment">
+        <a
+          href="#"
+          class="fas fa fa-align-left"
+          onclick="document.execCommand('justifyLeft', false, null)"
+        ></a>
+
+        <a
+          href="#"
+          class="fas fa fa-align-center"
+          onclick="document.execCommand('justifyCenter', false, null)"
+        ></a>
+
+        <a
+          href="#"
+          class="fas fa fa-align-right"
+          onclick="document.execCommand('justifyRight', false, null)"
+        ></a>
+
+        <a
+          href="#"
+          class="fas fa fa-align-justify"
+          onclick="document.execCommand('justifyFull', false, null)"
+        ></a>
+
+        <div class="control-divider"></div>
+
+        <a
+          href="#"
+          style="color: #000;"
+          id="fg-color"
+          class="fas fa fa-pen"
+          onclick="document.execCommand('justifyFull', false, null)"
+        >
+          <input type="color" />
+        </a>
+
+        <a
+          href="#"
+          style="color: #fff; background-color: #000; border-color: #000;"
+          id="bg-color"
+          class="fas fa fa-pen"
+          onclick="document.execCommand('justifyFull', false, null)"
+        >
+          <input type="color" />
+        </a>
+
+        <div class="control-divider"></div>
+
+        <a
+          href="#"
+          class="fas fa fa-bold"
+          onclick="document.execCommand('bold', false, null)"
+        ></a>
+
+        <a
+          href="#"
+          class="fas fa fa-italic"
+          onclick="document.execCommand('italic', false, null)"
+        ></a>
+
+        <a
+          href="#"
+          class="fas fa fa-underline"
+          onclick="document.execCommand('underline', false, null)"
+        ></a>
+
+        <div class="control-divider"></div>
+
+        <a
+          href="#"
+          class="far fa fa-image"
+          onclick="document.execCommand('justifyFull', false, null)"
+        >
+          <input type="file" accept="image/*" id="bg-image" />
+        </a>
+
+        <div class="control-divider"></div>
+
+        <a
+          href="#"
+          id="increase-font-size"
+          style="display: inline-flex; align-items: flex-start;"
+          onclick="document.execCommand('justifyFull', false, null)"
+        >
+          <i class="fas fa-font"></i>
+          <i style="font-size: 0.6em;" class="fas fa-plus"></i>
+        </a>
+
+        <a
+          href="#"
+          id="decrease-font-size"
+          style="display: inline-flex; align-items: flex-start;"
+          onclick="document.execCommand('justifyFull', false, null)"
+        >
+          <i class="fas fa-font"></i>
+          <i style="font-size: 0.6em;" class="fas fa-minus"></i>
+        </a>
+      </div>
+
+      <a href="#" id="heading">heading</a>
+      <!-- <a href="#" id="invert-color" data-theme="light">invert color</a> -->
+      <a id="download-png" style="font-size: 0.9em;" class="btn">
+        Export as PNG
+      </a>
+    </div>
+    <div id="pad" contenteditable placeholder="start typing..."></div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"
+      integrity="sha256-y9xVOgmBqPHwdnAHyi5OTSACwsNHlHx+IVI5HVVHfQM="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
