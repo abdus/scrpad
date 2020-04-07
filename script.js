@@ -9,15 +9,13 @@ dnld_btn.addEventListener('click', (e) => {
   // create attribution text
   const attribNode = document.createElement('small');
   attribNode.setAttribute('id', 'attribute');
-  attribNode.innerText = 'scrpad.yellowfire.co';
+  attribNode.innerText = 'created with scrpad.yellowfire.co';
   padNode.appendChild(attribNode);
 
   padNode.style.minHeight = '10px';
-  padNode.style.transform = 'scale(5)';
 
   html2canvas(padNode, { proxy: true, logging: true })
     .then(function (canvas) {
-      padNode.style.transform = 'scale(1)';
       padNode.style.minHeight = '80vh';
       padNode.style.display = 'block';
       canvas.style.display = 'none';
