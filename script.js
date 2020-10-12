@@ -9,7 +9,7 @@ dnld_btn.addEventListener('click', (e) => {
   // create attribution text
   const attribNode = document.createElement('small');
   attribNode.setAttribute('id', 'attribute');
-  attribNode.innerText = 'created with scrpad.yellowfire.co';
+  attribNode.innerText = '';
   padNode.appendChild(attribNode);
 
   padNode.style.minHeight = '10px';
